@@ -1,0 +1,48 @@
+import WritableDOMStream from "writable-dom";
+import wd from "./wd.marko";
+class {
+async wd() {
+    const res = await fetch("pn/wd");
+    const myEl = document.getElementById("wd-target");
+
+    await res.body
+      .pipeThrough(new TextDecoderStream())
+      .pipeTo(new WritableDOMStream(myEl));
+  }
+  async mf(){
+    const res = await fetch("http://localhost:3000/pn/mf");
+    const myEl = document.getElementById("mf-target");
+
+    await res.body
+      .pipeThrough(new TextDecoderStream())
+      .pipeTo(new WritableDOMStream(myEl));
+  }
+}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="description"
+      content="An example application showcasing Cloudflare, Vite & Marko."
+    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+  </head>
+  <body>
+    <div style="display:inline-block;width:100%">
+      <h3>TEST</h3>
+      <h4>Marko_Fastify_Vite</h4>
+      <button id="wd" style="margin-right:10px" on-click("wd") client-reorder=true>
+        writable-dom
+      </button>
+      <button on-click("mf")>
+       micro-frame
+      </button>
+      <hr>
+    </div>
+    <div id="wd-target" class="width:100%"/>
+    <div id="mf-target" class="width:100%"/>
+    <hr>
+  </body>
+</html>
