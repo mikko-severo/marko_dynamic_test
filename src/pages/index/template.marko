@@ -1,7 +1,40 @@
 import WritableDOMStream from "writable-dom";
-import wd from "./wd.marko";
+import "./wd.marko";
+<!-- BELOW DOES NOT WORK YET -->
+<!-- $ const fol = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(fetch("http://localhost:3000/pn/onload")), 1000);
+}); -->
+<!-- $ const fol = new Promise((resolve, reject) => {
+  return fetch("http://localhost:3000/pn/onload")
+  .then(response => {
+    if (response.ok) {
+      resolve(response)
+    } else {
+      reject(new Error('error'))
+    }
+  }, error => {
+    reject(new Error(error.message))
+  })
+}) -->
 class {
-async wd() {
+  async fol() {
+    const personPromise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve({ name: 'Frank' }), 5000);
+});
+    // const res = await fetch("pn/f");
+    // const myEl = document.getElementById("f-target");
+    // await res.body
+    //   .pipeThrough(new TextDecoderStream())
+    //   .pipeTo(new WritableDOMStream(myEl));
+  }
+  async f() {
+    const res = await fetch("http://localhost:3000/pn/f");
+    const myEl = document.getElementById("f-target");
+    await res.body
+      .pipeThrough(new TextDecoderStream())
+      .pipeTo(new WritableDOMStream(myEl));
+  }
+  async wd() {
     const res = await fetch("pn/wd");
     const myEl = document.getElementById("wd-target");
 
@@ -9,7 +42,7 @@ async wd() {
       .pipeThrough(new TextDecoderStream())
       .pipeTo(new WritableDOMStream(myEl));
   }
-  async mf(){
+  async mf() {
     const res = await fetch("http://localhost:3000/pn/mf");
     const myEl = document.getElementById("mf-target");
 
@@ -33,13 +66,19 @@ async wd() {
     <div style="display:inline-block;width:100%">
       <h3>TEST</h3>
       <h4>Marko_Fastify_Vite</h4>
-      <button id="wd" style="margin-right:10px" on-click("wd") client-reorder=true>
+      <button id="f" style="margin-right:10px" on-click("f")>
+        fetch
+      </button>
+      <button id="wd" style="margin-right:10px" on-click("wd")>
         writable-dom
       </button>
       <button on-click("mf")>
-       micro-frame
+        micro-frame
       </button>
       <hr>
+    </div>
+    <div id="f-target" class="width:100%">
+
     </div>
     <div id="wd-target" class="width:100%"/>
     <div id="mf-target" class="width:100%"/>
