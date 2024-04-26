@@ -19,8 +19,8 @@ import "./wd.marko";
 class {
   async fol() {
     const personPromise = new Promise((resolve, reject) => {
-  setTimeout(() => resolve({ name: 'Frank' }), 5000);
-});
+      setTimeout(() => resolve({ name: "Frank" }), 5000);
+    });
     // const res = await fetch("pn/f");
     // const myEl = document.getElementById("f-target");
     // await res.body
@@ -28,8 +28,19 @@ class {
     //   .pipeTo(new WritableDOMStream(myEl));
   }
   async f() {
-    const res = await fetch("http://localhost:3000/pn/f");
+    //const res = await fetch("http://localhost:3000/pn/fs");
     const myEl = document.getElementById("f-target");
+    await fetch("http://localhost:3000/pn/f")
+    .then(d => {
+      let s = d.text();
+      console.log(s)
+      //return myEl.innerHTML = d;
+      
+    });
+  }
+  async fs() {
+    const res = await fetch("http://localhost:3000/pn/fs");
+    const myEl = document.getElementById("fs-target");
     await res.body
       .pipeThrough(new TextDecoderStream())
       .pipeTo(new WritableDOMStream(myEl));
@@ -67,19 +78,20 @@ class {
       <h3>TEST</h3>
       <h4>Marko_Fastify_Vite</h4>
       <button id="f" style="margin-right:10px" on-click("f")>
-        fetch
+        fetch (not working)
+      </button>
+      <button id="fs" style="margin-right:10px" on-click("fs")>
+        fetch stream
       </button>
       <button id="wd" style="margin-right:10px" on-click("wd")>
         writable-dom
       </button>
       <button on-click("mf")>
-        micro-frame
+        micro-frame (not working)
       </button>
       <hr>
     </div>
-    <div id="f-target" class="width:100%">
-
-    </div>
+    <div id="f-target" class="width:100%"/>
     <div id="wd-target" class="width:100%"/>
     <div id="mf-target" class="width:100%"/>
     <hr>
