@@ -46,7 +46,7 @@ class {
       .pipeTo(new WritableDOMStream(myEl));
   }
   async wd() {
-    const res = await fetch("pn/wd");
+    const res = await fetch("http://localhost:3000/pn/wd");
     const myEl = document.getElementById("wd-target");
 
     await res.body
