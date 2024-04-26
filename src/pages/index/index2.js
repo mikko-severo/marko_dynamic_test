@@ -1,6 +1,7 @@
 import wd from "./wd.marko";
 import mf from "./mf.marko";
 import em from "./embed.marko";
+import fs from "./fs.marko";
 import f from "./f.marko";
 import onload from "./onload.marko";
 export default async (app) => {
@@ -11,6 +12,8 @@ export default async (app) => {
       reply.marko(wd, {});
     } else if (test === "mf") {
       reply.marko(mf, {});
+    } else if (test === "fs") {
+      reply.marko(f, {});
     } else if (test === "f") {
       reply.marko(f, {});
     } else if (test === "onload") {
